@@ -6,8 +6,9 @@ import java.util.*;
 import javax.swing.JTextArea;
 
 public class guiclient extends javax.swing.JFrame {
-
+    game tc;
     Clientjrk client = new Clientjrk();
+    serverjrk.ServerStart svr;
 
     public void ListenThread() {
         Thread IncomingReader = new Thread(new incomingReader(this, client));
@@ -44,6 +45,7 @@ public class guiclient extends javax.swing.JFrame {
         b_send = new javax.swing.JButton();
         lb_name = new javax.swing.JLabel();
         lb_name1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Chat - Client's frame");
@@ -116,6 +118,13 @@ public class guiclient extends javax.swing.JFrame {
         lb_name1.setText("Client");
         lb_name1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
+        jButton1.setText("play tic tac toe");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -159,7 +168,9 @@ public class guiclient extends javax.swing.JFrame {
                         .addComponent(lb_name1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lb_name)
-                        .addGap(201, 201, 201))))
+                        .addGap(98, 98, 98)
+                        .addComponent(jButton1)
+                        .addGap(30, 30, 30))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -185,11 +196,12 @@ public class guiclient extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(tf_chat)
-                    .addComponent(b_send, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE))
+                    .addComponent(b_send, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lb_name)
-                    .addComponent(lb_name1)))
+                    .addComponent(lb_name1)
+                    .addComponent(jButton1)))
         );
 
         pack();
@@ -214,6 +226,8 @@ public class guiclient extends javax.swing.JFrame {
 
             try {
                 client.Connect();
+                String n = (client.getDis()==null) ? "y":"n";
+                System.out.println(n);
             } catch (Exception ex) {
                 ta_chat.append("Cannot Connect! Try Again. \n");
                 ex.printStackTrace();
@@ -240,6 +254,8 @@ public class guiclient extends javax.swing.JFrame {
 
             try {
                 client.anonConnect();
+                String n = (client.getDis()==null) ? "y":"n";
+                System.out.println(n);
             } catch (Exception ex) {
                 ta_chat.append("Cannot Connect! Try Again. \n");
                 tf_username.setEditable(true);
@@ -273,6 +289,10 @@ public class guiclient extends javax.swing.JFrame {
         tf_chat.requestFocus();
     }//GEN-LAST:event_b_sendActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        tc = new game(client);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
@@ -287,6 +307,7 @@ public class guiclient extends javax.swing.JFrame {
     private javax.swing.JButton b_connect;
     private javax.swing.JButton b_disconnect;
     private javax.swing.JButton b_send;
+    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lb_address;
     private javax.swing.JLabel lb_name;

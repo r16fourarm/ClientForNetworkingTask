@@ -17,6 +17,20 @@ public class Clientjrk {
 
     String username, address = "localhost", msg;
     ArrayList<String> users = new ArrayList();
+    DataInputStream dis;
+    DataOutputStream dos;
+
+    public DataInputStream getDis() {
+        return dis;
+    }
+
+    public DataOutputStream getDos() {
+        return dos;
+    }
+
+    public Socket getSock() {
+        return sock;
+    }
     int port = 2225;
     Boolean isConnected = false;
     Socket sock;
@@ -63,12 +77,22 @@ public class Clientjrk {
 
     public void Connect() throws IOException {
         sock = new Socket(address, port);
+        dis =  new DataInputStream(sock.getInputStream());
+        dos = new DataOutputStream(sock.getOutputStream());
         InputStreamReader streamreader = new InputStreamReader(sock.getInputStream());
         reader = new BufferedReader(streamreader);
         writer = new PrintWriter(sock.getOutputStream());
         writer.println(username + ":has connected.:Connect");
         writer.flush();
         isConnected = true;
+    }
+
+    public void setDis(DataInputStream dis) {
+        this.dis = dis;
+    }
+
+    public void setDos(DataOutputStream dos) {
+        this.dos = dos;
     }
 
     public void anonConnect() throws IOException {
@@ -79,6 +103,8 @@ public class Clientjrk {
         anon = anon.concat(is);
         setUsername(anon);
         sock = new Socket(address, port);
+        dis =  new DataInputStream(sock.getInputStream());
+        dos = new DataOutputStream(sock.getOutputStream());
         InputStreamReader streamreader = new InputStreamReader(sock.getInputStream());
         reader = new BufferedReader(streamreader);
         writer = new PrintWriter(sock.getOutputStream());
