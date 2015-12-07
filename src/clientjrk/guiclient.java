@@ -3,10 +3,14 @@ package clientjrk;
 import java.net.*;
 import java.io.*;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JTextArea;
+import org.omg.PortableServer.THREAD_POLICY_ID;
 
 public class guiclient extends javax.swing.JFrame {
     game tc;
+    gameclient gc ;
     Clientjrk client = new Clientjrk();
     serverjrk.ServerStart svr;
 
@@ -18,6 +22,11 @@ public class guiclient extends javax.swing.JFrame {
     public guiclient() {
 
         initComponents();
+        /*try {
+            gc=new gameclient("localhost");
+        } catch (Exception ex) {
+            Logger.getLogger(guiclient.class.getName()).log(Level.SEVERE, null, ex);
+        }*/
     }
 
     public JTextArea getTa_chat() {
@@ -290,7 +299,14 @@ public class guiclient extends javax.swing.JFrame {
     }//GEN-LAST:event_b_sendActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        tc = new game(client);
+        try {
+           
+          gc = new gameclient("localhost");
+          gc.start();
+        } catch (Exception ex) {
+            Logger.getLogger(guiclient.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     public static void main(String args[]) {

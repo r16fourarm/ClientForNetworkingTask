@@ -59,6 +59,7 @@ public class game implements Runnable {
 
     private String[] spaces = new String[9];
 
+    private boolean gstart = false;
     private boolean yourTurn = false;
     private boolean circle = true;
     private boolean accepted = false;
@@ -131,8 +132,10 @@ public class game implements Runnable {
             tick();
             painter.repaint();
 
-            if (!circle && !accepted) {
+            if (!circle && !accepted && !gstart) {
+                gstart=true;
                 listenForServerRequest();
+                
                 System.out.println("asw");
             }
 
@@ -282,6 +285,7 @@ public class game implements Runnable {
             dos = new DataOutputStream(socket.getOutputStream());
             dis = new DataInputStream(socket.getInputStream());
             accepted = true;
+            gstart=false;
             System.out.println("CLIENT HAS REQUESTED TO JOIN, AND WE HAVE ACCEPTED");
         } catch (IOException e) {
             e.printStackTrace();
