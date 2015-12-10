@@ -303,6 +303,7 @@ public class guiclient extends javax.swing.JFrame {
            
           gc = new gameclient("localhost");
           gc.start();
+          
         } catch (Exception ex) {
             Logger.getLogger(guiclient.class.getName()).log(Level.SEVERE, null, ex);
         }

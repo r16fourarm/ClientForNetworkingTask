@@ -24,6 +24,7 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Scanner;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
@@ -332,6 +333,8 @@ public class game implements Runnable {
     @SuppressWarnings("unused")
     public static void main(String[] args) {
         game ticTacToe = new game(cli);
+        ArrayList a = new  ArrayList();
+        a.
     }
 
     private class Painter extends JPanel implements MouseListener {

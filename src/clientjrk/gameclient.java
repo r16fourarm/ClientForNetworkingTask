@@ -141,7 +141,7 @@ public class gameclient extends Thread
         }
     }
 
-    private boolean wantsToPlayAgain() {
+    public boolean wantsToPlayAgain() {
         int response = JOptionPane.showConfirmDialog(frame,
             "Want to play again?",
             "Tic Tac Toe is Fun Fun Fun",
@@ -154,7 +154,19 @@ public class gameclient extends Thread
     public void run() {
         String []args={};
         try {
+            while (true) {
             mains();
+            if (this.wantsToPlayAgain()) {
+                
+                gameclient g = new gameclient("localhost");
+                
+                g.start();
+                this.stop();
+        }else{
+                this.stop();
+            }
+            
+            }
         } catch (Exception ex) {
             Logger.getLogger(gameclient.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -185,7 +197,7 @@ public class gameclient extends Thread
     public void mains() throws Exception {
         
     
-        while (true) {
+        
             //String serverAddress = "0.0.0.0";//(args.length == 0) ? "localhost" : args[1];
             //gameclient client = new gameclient(serverAddress);
             this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -193,10 +205,10 @@ public class gameclient extends Thread
             this.frame.setVisible(true);
             this.frame.setResizable(false);
             this.play();
-            if (!this.wantsToPlayAgain()) {
-                break;
-            }
-        }
+            //if (!this.wantsToPlayAgain()) {
+              //  break;
+            
+        //}
     }
 }
 
